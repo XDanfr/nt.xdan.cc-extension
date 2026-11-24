@@ -2,20 +2,28 @@
 
 A Chrome and Firefox extension that replaces the new tab page with [nt.xdan.cc](https://nt.xdan.cc), a clean, customisable Material 3 Expressive start page.
 
-The extension's new tab page shows the live site in a full-size frame, so it always matches nt.xdan.cc. It requests no permissions and collects no data. The site keeps your settings in its own storage. Inside the extension, the browser may store them separately from settings saved when you visit nt.xdan.cc directly; use **Make it yours → Export / Import** to copy them across.
+The page is bundled into the extension from the [nt.xdan.cc repo](https://github.com/XDanfr/nt.xdan.cc) (the `site` submodule), so it opens instantly and works offline. Offline, shortcut icons fall back to letters, and anything that needs the internet (searching, suggestions, fonts other than Outfit) waits until you're back online.
+
+It collects no data and asks for no permissions at install. Turning on search suggestions asks for access to `suggestqueries.google.com`, which receives what you type. Settings are stored by the extension, separately from nt.xdan.cc in the browser; use **Make it yours → Export / Import** to copy them across.
 
 ## Package
 
 ```bash
+git clone --recurse-submodules https://github.com/XDanfr/nt.xdan.cc-extension.git
+cd nt.xdan.cc-extension
 npm run package
 ```
 
-This writes to `dist/`:
+The script builds the page from `site/` (installing its dependencies the first time), adds the manifest and icons, and writes to `dist/`:
 
 - `chrome/` and `nt-newtab-chrome-<version>.zip`
 - `firefox/` and `nt-newtab-firefox-<version>.xpi`
 
-Bump `version` in `src/manifest.json` before packaging a release.
+To ship a newer version of the page, update the submodule and bump `version` in `src/manifest.json`:
+
+```bash
+git submodule update --remote site
+```
 
 ## Install locally
 
@@ -30,8 +38,3 @@ The PNG icons come from `src/icons/icon.svg`, the nt.xdan.cc favicon. To regener
 ```bash
 npm run icons
 ```
-
-## Notes
-
-- nt.xdan.cc opens shortcuts and searches in the whole tab when it detects it's framed.
-- The frame allows the microphone so the site's optional voice search works.
