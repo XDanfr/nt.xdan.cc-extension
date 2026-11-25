@@ -3,7 +3,7 @@
   "name": "nt.xdan.cc New Tab",
   "short_name": "New Tab",
   "description": "A clean, customisable Material 3 Expressive new tab page from nt.xdan.cc. Works offline.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

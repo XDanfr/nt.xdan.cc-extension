@@ -19,7 +19,9 @@ The script builds the page from `site/` (installing its dependencies the first t
 - `chrome/` and `nt-newtab-chrome-<version>.zip`
 - `firefox/` and `nt-newtab-firefox-<version>.xpi`
 
-To ship a newer version of the page, update the submodule and bump `version` in `src/manifest.json`:
+A GitHub Action (`.github/workflows/sync-site.yml`) checks the nt.xdan.cc repo every six hours. When it has new commits, the action updates the submodule, bumps the patch version, checks that the package builds and pushes the result. You can also run it from the Actions tab.
+
+To do it by hand, update the submodule and bump `version` in `src/manifest.json`:
 
 ```bash
 git submodule update --remote site
